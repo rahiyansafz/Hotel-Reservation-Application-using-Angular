@@ -1,0 +1,10 @@
+@import '~@lightweightform/bootstrap-theme/scss/bootstrap-theme';
+
+#reservation-confirmed {
+  margin-top: 2 * $spacer;
+
+  lf-icon {
+    color: $success;
+    margin-right: $spacer;
+  }
+}

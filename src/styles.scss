@@ -1,0 +1,14 @@
+// Upstream Bootstrap variables and theme variables may be overridden here. See:
+// https://getbootstrap.com/docs/4.4/getting-started/theming/#variable-defaults
+// and https://github.com/twbs/bootstrap/blob/v4.4.1/scss/_variables.scss to
+// override Bootstrap variables. LF theme variables names can be found at:
+// https://bitbucket.org/opensoftgitrepo/lightweightform/src/master/libs/bootstrap-theme/src/scss-utils/_variables.scss
+
+@import '~@lightweightform/bootstrap-theme/scss/bootstrap-theme';
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}

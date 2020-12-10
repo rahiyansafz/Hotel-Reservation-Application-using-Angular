@@ -1,0 +1,31 @@
+<lf-form path="/guests">
+  <lf-table path=".">
+    <lf-table-header>
+      <lf-table-column id="name"></lf-table-column>
+      <lf-table-column
+        id="navigation"
+        [fixed]="true"
+        [minWidth]="200"
+      ></lf-table-column>
+    </lf-table-header>
+
+    <ng-template #lfTableRowTemplate let-id="id">
+      <tr lf-table-row [path]="id">
+        <td lf-table-cell><lf-text path="name"></lf-text></td>
+        <td lf-table-cell>
+          <a
+            lf-button
+            size="sm"
+            [style]="'outline-success'"
+            [block]="true"
+            [routerLink]="id"
+            queryParamsHandling="merge"
+          >
+            <lf-icon icon="share-square-o"></lf-icon>
+            <lf-i18n path=".." key="navigateButtonLabel"></lf-i18n>
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+  </lf-table>
+</lf-form>

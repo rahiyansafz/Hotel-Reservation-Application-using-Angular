@@ -1,0 +1,84 @@
+<lf-app *ngIf="!reservationConfirmed">
+  <!-- Top-bar of the application -->
+  <lf-top-bar [actions]="actions">
+    <!-- Title -->
+    <lf-i18n key="label"></lf-i18n>
+  </lf-top-bar>
+
+  <!-- Tree-nav -->
+  <lf-tree-nav></lf-tree-nav>
+
+  <!-- Content -->
+  <router-outlet></router-outlet>
+</lf-app>
+
+<div id="reservation-confirmed" class="container" *ngIf="reservationConfirmed">
+  <div class="jumbotron">
+    <h1 class="display-4">
+      <lf-icon icon="check-circle"></lf-icon>
+      <lf-i18n key="reservationConfirmed"></lf-i18n>
+    </h1>
+    <hr class="my-4" />
+    <pre><code><strong>data =</strong> {{ lfStorage.getAsJS() | json }}</code></pre>
+  </div>
+</div>
+
+<!-- Modal to finalise the reservation -->
+<lf-modal #finalizeModal size="lg" *mobxAutorun>
+  <lf-modal-header>
+    <lf-i18n key="finalizeModalTitle"></lf-i18n>
+  </lf-modal-header>
+
+  <lf-modal-body>
+    <lf-text path="/reservation-details/name" [isReadOnly]="true"></lf-text>
+    <lf-date-range
+      path="/reservation-details/check-in-out"
+      [isReadOnly]="true"
+    ></lf-date-range>
+
+    <lf-table path="/reservation-details/rooms" [isReadOnly]="true">
+      <lf-table-header>
+        <lf-table-column id="type"></lf-table-column>
+        <lf-table-column id="smoking-room"></lf-table-column>
+      </lf-table-header>
+
+      <ng-template #lfTableRowTemplate let-id="id">
+        <tr lf-table-row [path]="id">
+          <td lf-table-cell><lf-select path="type"></lf-select></td>
+          <td lf-table-cell><lf-checkbox path="smoking-room"></lf-checkbox></td>
+        </tr>
+      </ng-template>
+    </lf-table>
+
+    <lf-table path="/guests" [isReadOnly]="true">
+      <lf-table-header>
+        <lf-table-column id="name"></lf-table-column>
+        <lf-table-column id="document-type"></lf-table-column>
+        <lf-table-column id="document-number"></lf-table-column>
+      </lf-table-header>
+
+      <ng-template #lfTableRowTemplate let-id="id">
+        <tr lf-table-row [path]="id">
+          <td lf-table-cell><lf-text path="name"></lf-text></td>
+          <td lf-table-cell><lf-select path="document-type"></lf-select></td>
+          <td lf-table-cell><lf-text path="document-number"></lf-text></td>
+        </tr>
+      </ng-template>
+    </lf-table>
+
+    <lf-number path="/reservation-details/total-amount"></lf-number>
+  </lf-modal-body>
+
+  <lf-modal-footer>
+    <button
+      lf-button
+      [style]="'outline-secondary'"
+      (click)="finalizeModal.hide()"
+    >
+      <lf-i18n key="finalizeModalCancel"></lf-i18n>
+    </button>
+    <button lf-button [style]="'success'" (click)="confirmFinalize()">
+      <lf-i18n key="finalizeModalConfirm"></lf-i18n>
+    </button>
+  </lf-modal-footer>
+</lf-modal>
